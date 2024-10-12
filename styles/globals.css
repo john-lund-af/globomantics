@@ -35,8 +35,21 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.theme-font-color {
+  color: coral;
 }
+
+.logo {
+  height: 150px;
+  cursor: pointer;
+}
+
+tr {
+  cursor: pointer;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: light;
+  }
+} */
