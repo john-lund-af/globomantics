@@ -1,11 +1,17 @@
 import HouseRow from './HouseRow';
 import {useEffect, useState} from 'react';
+import Button from './Button';
 
 const HouseList = () => {
   const [houses, setHouses] = useState([]);
 
   const addHouse = (house) => {
     setHouses(prev => [...prev, house]);
+  }
+
+  const onAddHouse = () => {
+    const houseToAdd = {id:3, address: "Slagstavägen 2", country: "Sweden", price: 10000};
+    addHouse(houseToAdd);
   }
 
   useEffect(() => {
@@ -30,7 +36,7 @@ const HouseList = () => {
         {houses.map(house => <HouseRow key={house.id} {...house} />)}
       </tbody>
     </table>
-    <button onClick={() => addHouse({id:3, address: "Slagstavägen 2", country: "Sweden", price: 10000})} className="btn btn-primary">Add house</button>
+    <Button caption="Add house" handleClick={onAddHouse} />
   </>
 }
 
