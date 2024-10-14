@@ -5,8 +5,15 @@ import Button from './Button';
 const HouseList = () => {
   const [houses, setHouses] = useState([]);
 
-  const addHouse = (house) => {
-    setHouses(prev => [...prev, house]);
+  const addHouse = async (house) => {
+    fetch("http://localhost:3001/houses", {
+      method: "POST",
+      body: JSON.stringify(house)
+    })
+    .then(res => res.json())
+    .then(data => setHouses(prev => [...prev, data]))
+    .catch(err => console.err(err.name, err.message));
+
   }
 
   const onAddHouse = () => {
