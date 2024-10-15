@@ -2,7 +2,7 @@ import HouseRow from './HouseRow';
 import {useEffect, useState} from 'react';
 import Button from './Button';
 
-const HouseList = () => {
+const HouseList = ({handleSelectedHouse}) => {
   const [houses, setHouses] = useState([]);
 
   const addHouse = async (house) => {
@@ -40,7 +40,7 @@ const HouseList = () => {
         </tr>
       </thead>
       <tbody>
-        {houses.map(house => <HouseRow key={house.id} {...house} />)}
+        {houses.map(house => <HouseRow handleSelectedHouse={handleSelectedHouse} key={house.id} house={house} />)}
       </tbody>
     </table>
     <Button caption="Add house" handleClick={onAddHouse} />
