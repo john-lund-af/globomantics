@@ -1,9 +1,11 @@
 import HouseRow from './HouseRow';
-import {useEffect, useState} from 'react';
+// import {useEffect, useState} from 'react';
 import Button from './Button';
+import useHouses from '@/hooks/useHouses';
 
 const HouseList = ({handleSelectedHouse}) => {
-  const [houses, setHouses] = useState([]);
+
+  const [houses, setHouses] = useHouses();
 
   const addHouse = async (house) => {
     fetch("http://localhost:3001/houses", {
@@ -17,15 +19,9 @@ const HouseList = ({handleSelectedHouse}) => {
   }
 
   const onAddHouse = () => {
-    const houseToAdd = {id:3, address: "Slagstavägen 2", country: "Sweden", price: 10000};
+    const houseToAdd = {id:6, address: "Slagstavägen 2", country: "Sweden", price: 10000};
     addHouse(houseToAdd);
   }
-
-  useEffect(() => {
-    fetch("http://localhost:3001/houses")
-      .then(res => res.json())
-      .then(data => setHouses(data));
-  }, [])
 
   return <>
     <div className="row mb-2">
