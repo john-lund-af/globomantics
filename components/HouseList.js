@@ -1,11 +1,12 @@
 import HouseRow from './HouseRow';
-// import {useEffect, useState} from 'react';
 import Button from './Button';
 import useHouses from '@/hooks/useHouses';
+import LoadingIndicator from './LoadingIndicator';
+import loadingStatus from '../helpers/loadingStatus';
 
 const HouseList = ({handleSelectedHouse}) => {
 
-  const [houses, setHouses] = useHouses();
+  const {houses, setHouses, loadingState} = useHouses();
 
   const addHouse = async (house) => {
     fetch("http://localhost:3001/houses", {
@@ -21,6 +22,11 @@ const HouseList = ({handleSelectedHouse}) => {
   const onAddHouse = () => {
     const houseToAdd = {id:6, address: "Slagstavägen 2", country: "Sweden", price: 10000};
     addHouse(houseToAdd);
+  }
+
+  {
+  if(loadingState !== loadingStatus.loaded)
+    return <LoadingIndicator loadingState={loadingState} /> 
   }
 
   return <>
