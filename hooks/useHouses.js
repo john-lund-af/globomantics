@@ -8,25 +8,20 @@ A hook can use other hooks.
 
 */
 
-import loadingStatus from '@/helpers/loadingStatus';
 import {useState, useEffect} from 'react';
+import useGetRequest from './useGetRequest';
 
 const useHouses = () => {
   const [houses, setHouses] = useState([]);
-  const [loadingState, setLoadingState] = useState(loadingStatus.isLoading);
+  const {get, loadingState} = useGetRequest("http://localhost:3001/houses");
 
   useEffect(() => {
-    fetch("http://localhost:3001/houses")
-      .then(res => res.json())
-      .then(data => {
-        setHouses(data);
-        setLoadingState(loadingStatus.loaded);
-      })
-      .catch(err => {
-        console.error(err.name, err.message);
-        setLoadingState(loadingStatus.hasErrored);
-      })
-  }, [])
+    const fetchHouses = async () => {
+      const houses = await get();
+      setHouses(houses);
+    };
+    fetchHouses();
+  }, [get])
 
   return {houses, setHouses, loadingState};
 }
